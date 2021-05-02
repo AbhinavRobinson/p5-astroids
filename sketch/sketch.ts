@@ -11,7 +11,9 @@ function setup() {
 
   // Init ship
   ship = new Ship();
-  astroids.push(new Astroid());
+  for (var i = 0; i < 10; i++) {
+    astroids.push(new Astroid());
+  }
 }
 
 // p5 WILL HANDLE REQUESTING ANIMATION FRAMES FROM THE BROWSER AND WIL RUN DRAW() EACH ANIMATION FROME

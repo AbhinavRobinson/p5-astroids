@@ -2,14 +2,22 @@
 class Astroid {
     constructor() {
         this.pos = createVector(random(width), random(height));
-        this.r = 50;
+        this.r = random(10, 35);
+        this.total = floor(random(5, 10));
     }
     render() {
         push();
         translate(this.pos.x, this.pos.y);
         noFill();
         stroke(255);
-        ellipse(0, 0, this.r * 2);
+        beginShape();
+        for (var i = 0; i < 10; i++) {
+            var angle = map(i, 0, this.total, 0, TWO_PI);
+            var x = this.r * cos(angle);
+            var y = this.r * sin(angle);
+            vertex(x, y);
+        }
+        endShape();
         pop();
     }
 }
@@ -127,7 +135,9 @@ function setup() {
     console.log("🚀 - Setup initialized - P5 is running");
     createCanvas(windowWidth, windowHeight);
     ship = new Ship();
-    astroids.push(new Astroid());
+    for (var i = 0; i < 10; i++) {
+        astroids.push(new Astroid());
+    }
 }
 function draw() {
     background(0);
