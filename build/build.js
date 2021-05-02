@@ -90,7 +90,10 @@ function keyReleased() {
     ship.setBoost(false);
 }
 function keyPressed() {
-    if (keyCode == RIGHT_ARROW) {
+    if (key == " ") {
+        laser.push(new Laser(ship.pos));
+    }
+    else if (keyCode == RIGHT_ARROW) {
         ship.setRotation(0.1);
     }
     else if (keyCode == LEFT_ARROW) {
@@ -98,6 +101,20 @@ function keyPressed() {
     }
     else if (keyCode == UP_ARROW) {
         ship.setBoost(true);
+    }
+}
+class Laser {
+    constructor(shipPosition) {
+        this.pos = createVector(shipPosition.x, shipPosition.y);
+        this.vel = createVector();
+    }
+    update() {
+        this.pos.add(this.vel);
+    }
+    render() {
+        stroke(255);
+        strokeWeight(4);
+        point(this.pos.x, this.pos.y);
     }
 }
 class Ship {
@@ -155,6 +172,7 @@ class Ship {
 }
 var ship;
 var astroids = [];
+var laser = [];
 function setup() {
     console.log("🚀 - Setup initialized - P5 is running");
     createCanvas(windowWidth, windowHeight);
@@ -173,6 +191,10 @@ function draw() {
         astroids[i].render();
         astroids[i].update();
         astroids[i].edgeWrapper();
+    }
+    for (var i = 0; i < laser.length; i++) {
+        laser[i].render();
+        laser[i].update();
     }
 }
 function windowResized() {

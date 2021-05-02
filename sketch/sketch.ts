@@ -1,6 +1,7 @@
 // global ship variable
 var ship: Ship;
 var astroids: Astroid[] = [];
+var laser: Laser[] = [];
 
 // P5 WILL AUTOMATICALLY USE GLOBAL MODE IF A DRAW() FUNCTION IS DEFINED
 function setup() {
@@ -30,6 +31,11 @@ function draw() {
     astroids[i].render();
     astroids[i].update();
     astroids[i].edgeWrapper();
+  }
+
+  for (var i = 0; i < laser.length; i++) {
+    laser[i].render();
+    laser[i].update();
   }
 }
 

@@ -1,9 +1,9 @@
 class Astroid {
   pos: p5.Vector;
+  vel: p5.Vector;
   r: number;
   total: number;
   offset: number[];
-  vel: p5.Vector;
   magicNumber: number;
 
   constructor() {
