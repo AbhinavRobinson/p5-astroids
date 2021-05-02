@@ -16,6 +16,7 @@ class Astroid {
         translate(this.pos.x, this.pos.y);
         noFill();
         stroke(255);
+        strokeWeight(1);
         beginShape();
         for (var i = 0; i < 10; i++) {
             var angle = map(i, 0, this.total, 0, TWO_PI);
@@ -112,9 +113,11 @@ class Laser {
         this.pos.add(this.vel);
     }
     render() {
+        push();
         stroke(255);
         strokeWeight(4);
         point(this.pos.x, this.pos.y);
+        pop();
     }
 }
 class Ship {
