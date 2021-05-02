@@ -49,6 +49,18 @@ class Ship {
     triangle(-this.r, this.r, this.r, this.r, 0, -this.r);
   }
 
+  edges() {
+    if (this.pos.x > width + this.r) {
+      this.pos.x = -this.r;
+    } else if (this.pos.x < -this.r) {
+      this.pos.x = width + this.r;
+    } else if (this.pos.y < -this.r) {
+      this.pos.y = height - this.r;
+    } else if (this.pos.y > height + this.r) {
+      this.pos.y = this.r;
+    }
+  }
+
   setRotation(amount: number) {
     this.rotation = amount;
   }
