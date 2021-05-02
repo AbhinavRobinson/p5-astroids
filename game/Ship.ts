@@ -33,7 +33,7 @@ class Ship {
     rotate(this.heading + PI / 2);
     // create triangle
     strokeWeight(this.isHit ? 7 : 1);
-    fill(this.isHit ? 150 : 0, 0, 0);
+    fill(this.isHit ? 150 : 50, this.isHit ? 0 : 50, this.isHit ? 0 : 50);
     stroke(255, this.isHit ? 0 : 255, this.isHit ? 0 : 255);
     if (this.delay > 0) {
       this.delay--;

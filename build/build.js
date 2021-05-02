@@ -109,6 +109,10 @@ function keyPressed() {
     else if (keyCode == UP_ARROW) {
         ship.setBoost(true);
     }
+    else if (keyCode == ESCAPE) {
+        reset();
+        gameIsOverAndHalt = 60;
+    }
 }
 class Laser {
     constructor(shipPosition, angle) {
@@ -160,7 +164,7 @@ class Ship {
         translate(this.pos.x, this.pos.y);
         rotate(this.heading + PI / 2);
         strokeWeight(this.isHit ? 7 : 1);
-        fill(this.isHit ? 150 : 0, 0, 0);
+        fill(this.isHit ? 150 : 50, this.isHit ? 0 : 50, this.isHit ? 0 : 50);
         stroke(255, this.isHit ? 0 : 255, this.isHit ? 0 : 255);
         if (this.delay > 0) {
             this.delay--;
@@ -219,6 +223,7 @@ var ship;
 var astroids = [];
 var laser = [];
 var score = 0;
+var gameIsOverAndHalt = 0;
 function setup() {
     console.log("🚀 - Setup initialized - P5 is running");
     createCanvas(windowWidth, windowHeight);
@@ -271,14 +276,20 @@ function draw() {
     textSize(32);
     text("Score : " + score, width / 2 - 75, 100);
 }
-function windowResized() {
-    resizeCanvas(windowWidth, windowHeight);
+function reset() {
     astroids = [];
     laser = [];
     ship.pos.x = width / 2;
     ship.pos.y = height / 2;
+    score = 0;
+    ship.vel.x = 0;
+    ship.vel.y = 0;
     for (var i = 0; i < int(width / 50); i++) {
         astroids.push(new Astroid());
     }
+}
+function windowResized() {
+    resizeCanvas(windowWidth, windowHeight);
+    reset();
 }
 //# sourceMappingURL=../game/game/build.js.map

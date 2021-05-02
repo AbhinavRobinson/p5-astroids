@@ -2,6 +2,7 @@ var ship: Ship;
 var astroids: Astroid[] = [];
 var laser: Laser[] = [];
 var score: number = 0;
+var gameIsOverAndHalt: number = 0;
 
 function setup() {
   console.log("🚀 - Setup initialized - P5 is running");
@@ -69,13 +70,20 @@ function draw() {
   text("Score : " + score, width / 2 - 75, 100);
 }
 
-function windowResized() {
-  resizeCanvas(windowWidth, windowHeight);
+function reset() {
   astroids = [];
   laser = [];
   ship.pos.x = width / 2;
   ship.pos.y = height / 2;
+  score = 0;
+  ship.vel.x = 0;
+  ship.vel.y = 0;
   for (var i = 0; i < int(width / 50); i++) {
     astroids.push(new Astroid());
   }
+}
+
+function windowResized() {
+  resizeCanvas(windowWidth, windowHeight);
+  reset();
 }

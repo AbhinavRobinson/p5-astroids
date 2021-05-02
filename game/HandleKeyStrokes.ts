@@ -12,5 +12,8 @@ function keyPressed() {
     ship.setRotation(-0.1);
   } else if (keyCode == UP_ARROW) {
     ship.setBoost(true);
+  } else if (keyCode == ESCAPE) {
+    reset();
+    gameIsOverAndHalt = 60;
   }
 }
