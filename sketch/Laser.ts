@@ -1,10 +1,12 @@
 class Laser {
   pos: p5.Vector;
   vel: p5.Vector;
+  laserSpeed: number = 7.5;
 
-  constructor(shipPosition: p5.Vector) {
+  constructor(shipPosition: p5.Vector, angle: number) {
     this.pos = createVector(shipPosition.x, shipPosition.y);
-    this.vel = createVector();
+    this.vel = p5.Vector.fromAngle(angle);
+    this.vel.mult(this.laserSpeed);
   }
 
   update() {
@@ -16,6 +18,7 @@ class Laser {
     stroke(255);
     strokeWeight(4);
     point(this.pos.x, this.pos.y);
+    strokeWeight(1);
     pop();
   }
 }

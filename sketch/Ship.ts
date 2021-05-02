@@ -30,7 +30,7 @@ class Ship {
     // add rotation
     rotate(this.heading + PI / 2);
     // create triangle
-    noFill();
+    fill(0);
     stroke(255);
     triangle(-this.r, this.r, this.r, this.r, 0, -this.r);
     pop();

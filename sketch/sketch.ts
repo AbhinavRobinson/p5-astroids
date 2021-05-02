@@ -22,11 +22,6 @@ function draw() {
   // CLEAR BACKGROUND
   background(0);
 
-  ship.render();
-  ship.update();
-  ship.turn();
-  ship.edgeWrapper();
-
   for (var i = 0; i < astroids.length; i++) {
     astroids[i].render();
     astroids[i].update();
@@ -37,6 +32,11 @@ function draw() {
     laser[i].render();
     laser[i].update();
   }
+
+  ship.render();
+  ship.update();
+  ship.turn();
+  ship.edgeWrapper();
 }
 
 // p5 WILL AUTO RUN THIS FUNCTION IF THE BROWSER WINDOW SIZE CHANGES

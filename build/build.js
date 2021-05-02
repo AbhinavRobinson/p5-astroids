@@ -16,7 +16,6 @@ class Astroid {
         translate(this.pos.x, this.pos.y);
         noFill();
         stroke(255);
-        strokeWeight(1);
         beginShape();
         for (var i = 0; i < 10; i++) {
             var angle = map(i, 0, this.total, 0, TWO_PI);
@@ -92,7 +91,7 @@ function keyReleased() {
 }
 function keyPressed() {
     if (key == " ") {
-        laser.push(new Laser(ship.pos));
+        laser.push(new Laser(ship.pos, ship.heading));
     }
     else if (keyCode == RIGHT_ARROW) {
         ship.setRotation(0.1);
@@ -105,9 +104,11 @@ function keyPressed() {
     }
 }
 class Laser {
-    constructor(shipPosition) {
+    constructor(shipPosition, angle) {
+        this.laserSpeed = 7.5;
         this.pos = createVector(shipPosition.x, shipPosition.y);
-        this.vel = createVector();
+        this.vel = p5.Vector.fromAngle(angle);
+        this.vel.mult(this.laserSpeed);
     }
     update() {
         this.pos.add(this.vel);
@@ -117,6 +118,7 @@ class Laser {
         stroke(255);
         strokeWeight(4);
         point(this.pos.x, this.pos.y);
+        strokeWeight(1);
         pop();
     }
 }
@@ -133,7 +135,7 @@ class Ship {
         push();
         translate(this.pos.x, this.pos.y);
         rotate(this.heading + PI / 2);
-        noFill();
+        fill(0);
         stroke(255);
         triangle(-this.r, this.r, this.r, this.r, 0, -this.r);
         pop();
@@ -186,10 +188,6 @@ function setup() {
 }
 function draw() {
     background(0);
-    ship.render();
-    ship.update();
-    ship.turn();
-    ship.edgeWrapper();
     for (var i = 0; i < astroids.length; i++) {
         astroids[i].render();
         astroids[i].update();
@@ -199,6 +197,10 @@ function draw() {
         laser[i].render();
         laser[i].update();
     }
+    ship.render();
+    ship.update();
+    ship.turn();
+    ship.edgeWrapper();
 }
 function windowResized() {
     resizeCanvas(windowWidth, windowHeight);
