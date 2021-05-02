@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "mapRoot": "./sketch/",
-    "module": "ES6",
+    "module": "AMD",
     "noImplicitAny": true,
     "outFile": "./build/build.js",
     "preserveConstEnums": true,

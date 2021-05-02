@@ -1,7 +1,8 @@
 // Type declarations
 declare class Ship {
-  render: () => void;
-  turn: (angle: number) => void;
+  render: () => void; // render ship
+  turn: () => void; // activate turn handler
+  setRotation: (amount: number) => void; // set turn amount
   constructor();
 }
 
@@ -11,8 +12,10 @@ function Ship() {
   this.pos = createVector(width / 2, height / 2);
   // size of ship
   this.r = 20;
-  // add rotation variable (radians)
+  // default heading
   this.heading = 0;
+  // add rotation variable (radians)
+  this.rotation = 0;
 
   // render ship
   this.render = () => {
@@ -26,7 +29,13 @@ function Ship() {
     triangle(-this.r, this.r, this.r, this.r, 0, -this.r);
   };
 
-  this.turn = (angle: number) => {
-    this.heading += angle;
+  // set rotation (on key stroke)
+  this.setRotation = (amount: number) => {
+    this.rotation = amount;
+  };
+
+  // update heading
+  this.turn = () => {
+    this.heading += this.rotation;
   };
 }

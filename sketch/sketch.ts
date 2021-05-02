@@ -18,7 +18,7 @@ function draw() {
   background(0);
 
   ship.render();
-  ship.turn(0.01);
+  ship.turn();
 }
 
 // p5 WILL AUTO RUN THIS FUNCTION IF THE BROWSER WINDOW SIZE CHANGES
