@@ -135,6 +135,15 @@ class Laser {
         }
         return false;
     }
+    offscreen() {
+        if (this.pos.x > width || this.pos.x < 0) {
+            return true;
+        }
+        else if (this.pos.y > height || this.pos.y < 0) {
+            return true;
+        }
+        return false;
+    }
 }
 class Ship {
     constructor() {
@@ -230,6 +239,9 @@ function draw() {
                 laser.splice(i, 1);
                 break;
             }
+        }
+        if (laser[i].offscreen()) {
+            laser.splice(i, 1);
         }
     }
     ship.render();

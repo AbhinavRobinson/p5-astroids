@@ -40,6 +40,10 @@ function draw() {
         break;
       }
     }
+
+    if (laser[i].offscreen()) {
+      laser.splice(i, 1);
+    }
   }
 
   ship.render();

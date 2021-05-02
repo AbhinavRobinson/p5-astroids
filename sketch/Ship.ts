@@ -74,7 +74,6 @@ class Ship {
 
   hits(astroidId: Astroid) {
     var d = dist(this.pos.x, this.pos.y, astroidId.pos.x, astroidId.pos.y);
-
     if (d < this.r + astroidId.r) {
       return true;
     }
