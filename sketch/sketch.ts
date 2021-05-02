@@ -28,6 +28,8 @@ function draw() {
 
   for (var i = 0; i < astroids.length; i++) {
     astroids[i].render();
+    astroids[i].update();
+    astroids[i].edgeWrapper();
   }
 }
 
