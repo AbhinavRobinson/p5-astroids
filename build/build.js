@@ -52,6 +52,7 @@ function setup() {
 function draw() {
     background(0);
     ship.render();
+    ship.turn(0.01);
 }
 function windowResized() {
     resizeCanvas(windowWidth, windowHeight);
@@ -59,10 +60,17 @@ function windowResized() {
 function Ship() {
     var _this = this;
     this.pos = createVector(width / 2, height / 2);
-    this.r = 10;
+    this.r = 20;
+    this.heading = 0;
     this.render = function () {
         translate(_this.pos.x, _this.pos.y);
+        rotate(_this.heading);
+        noFill();
+        stroke(255);
         triangle(-_this.r, _this.r, _this.r, _this.r, 0, -_this.r);
+    };
+    this.turn = function (angle) {
+        _this.heading += angle;
     };
 }
 //# sourceMappingURL=../sketch/sketch/build.js.map
