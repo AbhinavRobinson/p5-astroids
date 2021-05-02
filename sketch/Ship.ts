@@ -22,22 +22,6 @@ class Ship {
     this.isBoosting = false;
   }
 
-  update() {
-    if (this.isBoosting) this.boost();
-    this.pos.add(this.vel);
-    this.vel.mult(0.99);
-  }
-
-  boost() {
-    var force = p5.Vector.fromAngle(this.heading);
-    force.mult(0.1);
-    this.vel.add(force);
-  }
-
-  boosting(boostState: boolean) {
-    this.isBoosting = boostState;
-  }
-
   render() {
     // set position
     translate(this.pos.x, this.pos.y);
@@ -49,7 +33,13 @@ class Ship {
     triangle(-this.r, this.r, this.r, this.r, 0, -this.r);
   }
 
-  edges() {
+  update() {
+    if (this.isBoosting) this.boost();
+    this.pos.add(this.vel);
+    this.vel.mult(0.99);
+  }
+
+  edgeWrapper() {
     if (this.pos.x > width + this.r) {
       this.pos.x = -this.r;
     } else if (this.pos.x < -this.r) {
@@ -64,7 +54,18 @@ class Ship {
   setRotation(amount: number) {
     this.rotation = amount;
   }
+
   turn() {
     this.heading += this.rotation;
+  }
+
+  boost() {
+    var force = p5.Vector.fromAngle(this.heading);
+    force.mult(0.1);
+    this.vel.add(force);
+  }
+
+  setBoost(boostState: boolean) {
+    this.isBoosting = boostState;
   }
 }

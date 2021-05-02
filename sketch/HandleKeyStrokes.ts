@@ -1,6 +1,6 @@
 function keyReleased() {
   ship.setRotation(0);
-  ship.boosting(false);
+  ship.setBoost(false);
 }
 
 function keyPressed() {
@@ -9,6 +9,6 @@ function keyPressed() {
   } else if (keyCode == LEFT_ARROW) {
     ship.setRotation(-0.1);
   } else if (keyCode == UP_ARROW) {
-    ship.boosting(true);
+    ship.setBoost(true);
   }
 }

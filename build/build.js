@@ -41,7 +41,7 @@ class ColorHelper {
 }
 function keyReleased() {
     ship.setRotation(0);
-    ship.boosting(false);
+    ship.setBoost(false);
 }
 function keyPressed() {
     if (keyCode == RIGHT_ARROW) {
@@ -51,7 +51,7 @@ function keyPressed() {
         ship.setRotation(-0.1);
     }
     else if (keyCode == UP_ARROW) {
-        ship.boosting(true);
+        ship.setBoost(true);
     }
 }
 class Ship {
@@ -63,20 +63,6 @@ class Ship {
         this.vel = createVector(0, 0);
         this.isBoosting = false;
     }
-    update() {
-        if (this.isBoosting)
-            this.boost();
-        this.pos.add(this.vel);
-        this.vel.mult(0.99);
-    }
-    boost() {
-        var force = p5.Vector.fromAngle(this.heading);
-        force.mult(0.1);
-        this.vel.add(force);
-    }
-    boosting(boostState) {
-        this.isBoosting = boostState;
-    }
     render() {
         translate(this.pos.x, this.pos.y);
         rotate(this.heading + PI / 2);
@@ -84,7 +70,13 @@ class Ship {
         stroke(255);
         triangle(-this.r, this.r, this.r, this.r, 0, -this.r);
     }
-    edges() {
+    update() {
+        if (this.isBoosting)
+            this.boost();
+        this.pos.add(this.vel);
+        this.vel.mult(0.99);
+    }
+    edgeWrapper() {
         if (this.pos.x > width + this.r) {
             this.pos.x = -this.r;
         }
@@ -104,6 +96,14 @@ class Ship {
     turn() {
         this.heading += this.rotation;
     }
+    boost() {
+        var force = p5.Vector.fromAngle(this.heading);
+        force.mult(0.1);
+        this.vel.add(force);
+    }
+    setBoost(boostState) {
+        this.isBoosting = boostState;
+    }
 }
 var ship;
 function setup() {
@@ -116,7 +116,7 @@ function draw() {
     ship.render();
     ship.turn();
     ship.update();
-    ship.edges();
+    ship.edgeWrapper();
 }
 function windowResized() {
     resizeCanvas(windowWidth, windowHeight);
