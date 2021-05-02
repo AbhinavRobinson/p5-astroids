@@ -1,12 +1,12 @@
 "use strict";
 class Astroid {
-    constructor() {
-        this.pos = createVector(random(width), random(height));
+    constructor(pos, maxSize) {
+        this.pos = pos ? pos.copy() : createVector(random(width), random(height));
         this.vel = p5.Vector.random2D();
-        this.r = random(5, 25);
+        this.r = maxSize ? random(5, maxSize) : random(5, 25);
         this.total = floor(random(5, 10));
         this.offset = [];
-        this.magicNumber = random(9, 12);
+        this.magicNumber = this.r;
         for (var i = 0; i < this.total; i++) {
             this.offset[i] = random(-this.magicNumber, this.magicNumber);
         }
@@ -43,6 +43,13 @@ class Astroid {
         else if (this.pos.y > height + this.r) {
             this.pos.y = this.r;
         }
+    }
+    breakup() {
+        console.log(this, "BP");
+        var newA = [];
+        newA.push(new Astroid(this.pos, this.r));
+        newA.push(new Astroid(this.pos, this.r));
+        return newA;
     }
 }
 class ColorHelper {
@@ -121,6 +128,13 @@ class Laser {
         strokeWeight(1);
         pop();
     }
+    hits(astroidId) {
+        var d = dist(this.pos.x, this.pos.y, astroidId.pos.x, astroidId.pos.y);
+        if (d <= astroidId.r * 1.75) {
+            return true;
+        }
+        return false;
+    }
 }
 class Ship {
     constructor() {
@@ -193,9 +207,20 @@ function draw() {
         astroids[i].update();
         astroids[i].edgeWrapper();
     }
-    for (var i = 0; i < laser.length; i++) {
+    for (var i = laser.length - 1; i >= 0; i--) {
         laser[i].render();
         laser[i].update();
+        for (var j = astroids.length - 1; j >= 0; j--) {
+            if (laser[i].hits(astroids[j])) {
+                if (astroids[j].r > 10) {
+                    var newAstroids = astroids[j].breakup();
+                    astroids.push(...newAstroids);
+                }
+                astroids.splice(j, 1);
+                laser.splice(i, 1);
+                break;
+            }
+        }
     }
     ship.render();
     ship.update();

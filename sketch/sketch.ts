@@ -28,9 +28,21 @@ function draw() {
     astroids[i].edgeWrapper();
   }
 
-  for (var i = 0; i < laser.length; i++) {
+  for (var i = laser.length - 1; i >= 0; i--) {
     laser[i].render();
     laser[i].update();
+
+    for (var j = astroids.length - 1; j >= 0; j--) {
+      if (laser[i].hits(astroids[j])) {
+        if (astroids[j].r > 10) {
+          var newAstroids: Astroid[] = astroids[j].breakup();
+          astroids.push(...newAstroids);
+        }
+        astroids.splice(j, 1);
+        laser.splice(i, 1);
+        break;
+      }
+    }
   }
 
   ship.render();

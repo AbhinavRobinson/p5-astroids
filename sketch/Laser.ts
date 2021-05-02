@@ -21,4 +21,13 @@ class Laser {
     strokeWeight(1);
     pop();
   }
+
+  hits(astroidId: Astroid) {
+    var d = dist(this.pos.x, this.pos.y, astroidId.pos.x, astroidId.pos.y);
+    // graceful bound box
+    if (d <= astroidId.r * 1.75) {
+      return true;
+    }
+    return false;
+  }
 }

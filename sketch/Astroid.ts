@@ -6,13 +6,13 @@ class Astroid {
   offset: number[];
   magicNumber: number;
 
-  constructor() {
-    this.pos = createVector(random(width), random(height));
+  constructor(pos?: p5.Vector, maxSize?: number) {
+    this.pos = pos ? pos.copy() : createVector(random(width), random(height));
     this.vel = p5.Vector.random2D();
-    this.r = random(5, 25);
+    this.r = maxSize ? random(5, maxSize) : random(5, 25);
     this.total = floor(random(5, 10));
     this.offset = [];
-    this.magicNumber = random(9, 12);
+    this.magicNumber = this.r;
 
     for (var i = 0; i < this.total; i++) {
       this.offset[i] = random(-this.magicNumber, this.magicNumber);
@@ -50,5 +50,13 @@ class Astroid {
     } else if (this.pos.y > height + this.r) {
       this.pos.y = this.r;
     }
+  }
+
+  breakup() {
+    console.log(this, "BP");
+    var newA: Astroid[] = [];
+    newA.push(new Astroid(this.pos, this.r));
+    newA.push(new Astroid(this.pos, this.r));
+    return newA;
   }
 }
