@@ -147,6 +147,7 @@ class Laser {
 }
 class Ship {
     constructor() {
+        this.delay = 15;
         this.pos = createVector(width / 2, height / 2);
         this.r = 20;
         this.heading = 0;
@@ -158,8 +159,16 @@ class Ship {
         push();
         translate(this.pos.x, this.pos.y);
         rotate(this.heading + PI / 2);
-        fill(0);
-        stroke(255);
+        strokeWeight(this.isHit ? 7 : 1);
+        fill(this.isHit ? 150 : 0, 0, 0);
+        stroke(255, this.isHit ? 0 : 255, this.isHit ? 0 : 255);
+        if (this.delay > 0) {
+            this.delay--;
+        }
+        else {
+            this.delay = 15;
+            this.isHit = false;
+        }
         triangle(-this.r, this.r, this.r, this.r, 0, -this.r);
         pop();
     }
@@ -200,6 +209,7 @@ class Ship {
     hits(astroidId) {
         var d = dist(this.pos.x, this.pos.y, astroidId.pos.x, astroidId.pos.y);
         if (d < this.r + astroidId.r) {
+            this.isHit = true;
             return true;
         }
         return false;

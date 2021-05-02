@@ -7,6 +7,8 @@ class Ship {
   rotation: number;
   vel: p5.Vector;
   isBoosting: boolean;
+  isHit: boolean;
+  delay: number = 15;
 
   constructor() {
     // define postion
@@ -30,8 +32,15 @@ class Ship {
     // add rotation
     rotate(this.heading + PI / 2);
     // create triangle
-    fill(0);
-    stroke(255);
+    strokeWeight(this.isHit ? 7 : 1);
+    fill(this.isHit ? 150 : 0, 0, 0);
+    stroke(255, this.isHit ? 0 : 255, this.isHit ? 0 : 255);
+    if (this.delay > 0) {
+      this.delay--;
+    } else {
+      this.delay = 15;
+      this.isHit = false;
+    }
     triangle(-this.r, this.r, this.r, this.r, 0, -this.r);
     pop();
   }
@@ -75,6 +84,7 @@ class Ship {
   hits(astroidId: Astroid) {
     var d = dist(this.pos.x, this.pos.y, astroidId.pos.x, astroidId.pos.y);
     if (d < this.r + astroidId.r) {
+      this.isHit = true;
       return true;
     }
     return false;
