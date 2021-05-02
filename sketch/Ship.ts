@@ -5,6 +5,7 @@ class Ship {
   heading: number;
   rotation: number;
   vel: p5.Vector;
+  isBoosting: boolean;
 
   constructor() {
     // define postion
@@ -17,15 +18,24 @@ class Ship {
     this.rotation = 0;
 
     this.vel = createVector(0, 0);
+
+    this.isBoosting = false;
   }
 
   update() {
+    if (this.isBoosting) this.boost();
     this.pos.add(this.vel);
+    this.vel.mult(0.99);
   }
 
   boost() {
     var force = p5.Vector.fromAngle(this.heading);
+    force.mult(0.1);
     this.vel.add(force);
+  }
+
+  boosting(boostState: boolean) {
+    this.isBoosting = boostState;
   }
 
   render() {

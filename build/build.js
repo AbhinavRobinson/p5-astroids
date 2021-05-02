@@ -41,6 +41,7 @@ class ColorHelper {
 }
 function keyReleased() {
     ship.setRotation(0);
+    ship.boosting(false);
 }
 function keyPressed() {
     if (keyCode == RIGHT_ARROW) {
@@ -50,7 +51,7 @@ function keyPressed() {
         ship.setRotation(-0.1);
     }
     else if (keyCode == UP_ARROW) {
-        ship.boost();
+        ship.boosting(true);
     }
 }
 class Ship {
@@ -60,13 +61,21 @@ class Ship {
         this.heading = 0;
         this.rotation = 0;
         this.vel = createVector(0, 0);
+        this.isBoosting = false;
     }
     update() {
+        if (this.isBoosting)
+            this.boost();
         this.pos.add(this.vel);
+        this.vel.mult(0.99);
     }
     boost() {
         var force = p5.Vector.fromAngle(this.heading);
+        force.mult(0.1);
         this.vel.add(force);
+    }
+    boosting(boostState) {
+        this.isBoosting = boostState;
     }
     render() {
         translate(this.pos.x, this.pos.y);
