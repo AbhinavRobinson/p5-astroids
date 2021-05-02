@@ -7,5 +7,7 @@ function keyPressed() {
     ship.setRotation(0.1);
   } else if (keyCode == LEFT_ARROW) {
     ship.setRotation(-0.1);
+  } else if (keyCode == UP_ARROW) {
+    ship.boost();
   }
 }

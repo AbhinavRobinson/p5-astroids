@@ -1,3 +1,4 @@
+"use strict";
 class ColorHelper {
     static getColorVector(c) {
         return createVector(red(c), green(c), blue(c));
@@ -48,25 +49,38 @@ function keyPressed() {
     else if (keyCode == LEFT_ARROW) {
         ship.setRotation(-0.1);
     }
+    else if (keyCode == UP_ARROW) {
+        ship.boost();
+    }
 }
-function Ship() {
-    this.pos = createVector(width / 2, height / 2);
-    this.r = 20;
-    this.heading = 0;
-    this.rotation = 0;
-    this.render = () => {
+class Ship {
+    constructor() {
+        this.pos = createVector(width / 2, height / 2);
+        this.r = 20;
+        this.heading = 0;
+        this.rotation = 0;
+        this.vel = createVector(0, 0);
+    }
+    update() {
+        this.pos.add(this.vel);
+    }
+    boost() {
+        var force = p5.Vector.fromAngle(this.heading);
+        this.vel.add(force);
+    }
+    render() {
         translate(this.pos.x, this.pos.y);
-        rotate(this.heading);
+        rotate(this.heading + PI / 2);
         noFill();
         stroke(255);
         triangle(-this.r, this.r, this.r, this.r, 0, -this.r);
-    };
-    this.setRotation = (amount) => {
+    }
+    setRotation(amount) {
         this.rotation = amount;
-    };
-    this.turn = () => {
+    }
+    turn() {
         this.heading += this.rotation;
-    };
+    }
 }
 var ship;
 function setup() {
@@ -78,6 +92,7 @@ function draw() {
     background(0);
     ship.render();
     ship.turn();
+    ship.update();
 }
 function windowResized() {
     resizeCanvas(windowWidth, windowHeight);
