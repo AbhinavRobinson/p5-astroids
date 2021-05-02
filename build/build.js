@@ -188,6 +188,13 @@ class Ship {
     setBoost(boostState) {
         this.isBoosting = boostState;
     }
+    hits(astroidId) {
+        var d = dist(this.pos.x, this.pos.y, astroidId.pos.x, astroidId.pos.y);
+        if (d < this.r + astroidId.r) {
+            return true;
+        }
+        return false;
+    }
 }
 var ship;
 var astroids = [];
@@ -203,6 +210,9 @@ function setup() {
 function draw() {
     background(0);
     for (var i = 0; i < astroids.length; i++) {
+        if (ship.hits(astroids[i])) {
+            console.log("You Hit bro");
+        }
         astroids[i].render();
         astroids[i].update();
         astroids[i].edgeWrapper();
