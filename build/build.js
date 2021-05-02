@@ -43,14 +43,26 @@ var ColorHelper = (function () {
     };
     return ColorHelper;
 }());
+var ship;
 function setup() {
     console.log("🚀 - Setup initialized - P5 is running");
     createCanvas(windowWidth, windowHeight);
+    ship = new Ship();
 }
 function draw() {
     background(0);
+    ship.render();
 }
 function windowResized() {
     resizeCanvas(windowWidth, windowHeight);
+}
+function Ship() {
+    var _this = this;
+    this.pos = createVector(width / 2, height / 2);
+    this.r = 10;
+    this.render = function () {
+        translate(_this.pos.x, _this.pos.y);
+        triangle(-_this.r, _this.r, _this.r, _this.r, 0, -_this.r);
+    };
 }
 //# sourceMappingURL=../sketch/sketch/build.js.map
