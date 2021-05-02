@@ -208,6 +208,7 @@ class Ship {
 var ship;
 var astroids = [];
 var laser = [];
+var score = 0;
 function setup() {
     console.log("🚀 - Setup initialized - P5 is running");
     createCanvas(windowWidth, windowHeight);
@@ -220,7 +221,7 @@ function draw() {
     background(0);
     for (var i = astroids.length - 1; i >= 0; i--) {
         if (ship.hits(astroids[i])) {
-            console.log("You Hit bro");
+            score -= 150;
             astroids.splice(i, 1);
             var rand_A = random(0, 10);
             var rand_B = random(0, 10);
@@ -241,6 +242,7 @@ function draw() {
         }
         for (var j = astroids.length - 1; j >= 0; j--) {
             if (laser[i].hits(astroids[j])) {
+                score += 100;
                 if (astroids[j].r > 10) {
                     var newAstroids = astroids[j].breakup();
                     astroids.push(...newAstroids);
@@ -255,6 +257,9 @@ function draw() {
     ship.update();
     ship.turn();
     ship.edgeWrapper();
+    fill(200);
+    textSize(32);
+    text("Score : " + score, width / 2 - 75, 100);
 }
 function windowResized() {
     resizeCanvas(windowWidth, windowHeight);
