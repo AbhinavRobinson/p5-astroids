@@ -4,6 +4,7 @@ class Astroid {
   total: number;
   offset: number[];
   vel: p5.Vector;
+  magicNumber: number;
 
   constructor() {
     this.pos = createVector(random(width), random(height));
@@ -11,9 +12,10 @@ class Astroid {
     this.r = random(5, 25);
     this.total = floor(random(5, 10));
     this.offset = [];
+    this.magicNumber = random(9, 12);
 
     for (var i = 0; i < this.total; i++) {
-      this.offset[i] = random(-15, 15);
+      this.offset[i] = random(-this.magicNumber, this.magicNumber);
     }
   }
 
