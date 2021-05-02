@@ -1,5 +1,6 @@
 // global ship variable
 var ship: Ship;
+var astroids: Astroid[] = [];
 
 // P5 WILL AUTOMATICALLY USE GLOBAL MODE IF A DRAW() FUNCTION IS DEFINED
 function setup() {
@@ -10,6 +11,7 @@ function setup() {
 
   // Init ship
   ship = new Ship();
+  astroids.push(new Astroid());
 }
 
 // p5 WILL HANDLE REQUESTING ANIMATION FRAMES FROM THE BROWSER AND WIL RUN DRAW() EACH ANIMATION FROME
@@ -18,9 +20,13 @@ function draw() {
   background(0);
 
   ship.render();
-  ship.turn();
   ship.update();
+  ship.turn();
   ship.edgeWrapper();
+
+  for (var i = 0; i < astroids.length; i++) {
+    astroids[i].render();
+  }
 }
 
 // p5 WILL AUTO RUN THIS FUNCTION IF THE BROWSER WINDOW SIZE CHANGES

@@ -1,4 +1,18 @@
 "use strict";
+class Astroid {
+    constructor() {
+        this.pos = createVector(random(width), random(height));
+        this.r = 50;
+    }
+    render() {
+        push();
+        translate(this.pos.x, this.pos.y);
+        noFill();
+        stroke(255);
+        ellipse(0, 0, this.r * 2);
+        pop();
+    }
+}
 class ColorHelper {
     static getColorVector(c) {
         return createVector(red(c), green(c), blue(c));
@@ -64,11 +78,13 @@ class Ship {
         this.isBoosting = false;
     }
     render() {
+        push();
         translate(this.pos.x, this.pos.y);
         rotate(this.heading + PI / 2);
         noFill();
         stroke(255);
         triangle(-this.r, this.r, this.r, this.r, 0, -this.r);
+        pop();
     }
     update() {
         if (this.isBoosting)
@@ -106,17 +122,22 @@ class Ship {
     }
 }
 var ship;
+var astroids = [];
 function setup() {
     console.log("🚀 - Setup initialized - P5 is running");
     createCanvas(windowWidth, windowHeight);
     ship = new Ship();
+    astroids.push(new Astroid());
 }
 function draw() {
     background(0);
     ship.render();
-    ship.turn();
     ship.update();
+    ship.turn();
     ship.edgeWrapper();
+    for (var i = 0; i < astroids.length; i++) {
+        astroids[i].render();
+    }
 }
 function windowResized() {
     resizeCanvas(windowWidth, windowHeight);

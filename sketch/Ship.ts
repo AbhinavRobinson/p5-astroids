@@ -1,4 +1,5 @@
 "use strict";
+
 class Ship {
   pos: p5.Vector;
   r: number;
@@ -23,6 +24,7 @@ class Ship {
   }
 
   render() {
+    push();
     // set position
     translate(this.pos.x, this.pos.y);
     // add rotation
@@ -31,6 +33,7 @@ class Ship {
     noFill();
     stroke(255);
     triangle(-this.r, this.r, this.r, this.r, 0, -this.r);
+    pop();
   }
 
   update() {
