@@ -8,7 +8,8 @@ function setup() {
   createCanvas(windowWidth, windowHeight);
 
   ship = new Ship();
-  for (var i = 0; i < 12; i++) {
+
+  for (var i = 0; i < int(width / 50); i++) {
     astroids.push(new Astroid());
   }
 }
@@ -64,4 +65,11 @@ function draw() {
 
 function windowResized() {
   resizeCanvas(windowWidth, windowHeight);
+  astroids = [];
+  laser = [];
+  ship.pos.x = width / 2;
+  ship.pos.y = height / 2;
+  for (var i = 0; i < int(width / 50); i++) {
+    astroids.push(new Astroid());
+  }
 }
