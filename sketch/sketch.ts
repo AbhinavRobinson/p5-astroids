@@ -16,9 +16,18 @@ function setup() {
 function draw() {
   background(0);
 
-  for (var i = 0; i < astroids.length; i++) {
+  for (var i = astroids.length - 1; i >= 0; i--) {
     if (ship.hits(astroids[i])) {
       console.log("You Hit bro");
+      astroids.splice(i, 1);
+      var rand_A = random(0, 10);
+      var rand_B = random(0, 10);
+      var newAPos = createVector(
+        rand_A > 5 ? 0 : width,
+        rand_B > 5 ? 0 : height
+      );
+      astroids.push(new Astroid(newAPos));
+      continue;
     }
     astroids[i].render();
     astroids[i].update();
