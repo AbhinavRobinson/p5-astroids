@@ -212,7 +212,7 @@ function setup() {
     console.log("🚀 - Setup initialized - P5 is running");
     createCanvas(windowWidth, windowHeight);
     ship = new Ship();
-    for (var i = 0; i < 10; i++) {
+    for (var i = 0; i < 12; i++) {
         astroids.push(new Astroid());
     }
 }
@@ -235,6 +235,10 @@ function draw() {
     for (var i = laser.length - 1; i >= 0; i--) {
         laser[i].render();
         laser[i].update();
+        if (laser[i].offscreen()) {
+            laser.splice(i, 1);
+            break;
+        }
         for (var j = astroids.length - 1; j >= 0; j--) {
             if (laser[i].hits(astroids[j])) {
                 if (astroids[j].r > 10) {
@@ -246,9 +250,6 @@ function draw() {
                 break;
             }
         }
-        if (laser[i].offscreen()) {
-            laser.splice(i, 1);
-        }
     }
     ship.render();
     ship.update();
@@ -258,4 +259,4 @@ function draw() {
 function windowResized() {
     resizeCanvas(windowWidth, windowHeight);
 }
-//# sourceMappingURL=../sketch/sketch/build.js.map
+//# sourceMappingURL=../game/game/build.js.map

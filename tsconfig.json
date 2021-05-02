@@ -1,14 +1,14 @@
 {
   "compilerOptions": {
-    "mapRoot": "./sketch/",
+    "mapRoot": "./game/",
     "module": "AMD",
     "noImplicitAny": true,
     "outFile": "./build/build.js",
     "preserveConstEnums": true,
     "removeComments": true,
-    "rootDir": "./sketch/",
+    "rootDir": "./game/",
     "sourceMap": true,
-    "sourceRoot": "./sketch/",
+    "sourceRoot": "./game/",
     "target": "es6"
   }
 }

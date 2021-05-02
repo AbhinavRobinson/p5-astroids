@@ -8,7 +8,7 @@ function setup() {
   createCanvas(windowWidth, windowHeight);
 
   ship = new Ship();
-  for (var i = 0; i < 10; i++) {
+  for (var i = 0; i < 12; i++) {
     astroids.push(new Astroid());
   }
 }
@@ -38,6 +38,11 @@ function draw() {
     laser[i].render();
     laser[i].update();
 
+    if (laser[i].offscreen()) {
+      laser.splice(i, 1);
+      break;
+    }
+
     for (var j = astroids.length - 1; j >= 0; j--) {
       if (laser[i].hits(astroids[j])) {
         if (astroids[j].r > 10) {
@@ -48,10 +53,6 @@ function draw() {
         laser.splice(i, 1);
         break;
       }
-    }
-
-    if (laser[i].offscreen()) {
-      laser.splice(i, 1);
     }
   }
 
